@@ -93,7 +93,7 @@ class DataStream extends Readable {
         }
 
         this.logger.info('subscribing');
-        this.command('SUBSCRIBE', topics, () => this.subscribed = false);
+        this.command('SUBSCRIBE', topics, () => this.subscribed = true);
     }
 
     unsubscribe(topics) {
