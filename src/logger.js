@@ -1,8 +1,8 @@
 'use strict';
 
 class Logger {
-    constructor(newLine = true) {
-        this.out = process.stdout;
+    constructor(out, newLine = true) {
+        this.out = out || process.stdout;
         this.newLine = newLine ? '\n' : '';
     }
 
@@ -48,9 +48,9 @@ module.exports.Logger = Logger;
 
 let _instance;
 
-module.exports.current = function () {
+module.exports.current = function (...args) {
     if (!_instance) {
-        _instance = new Logger();
+        _instance = new Logger(...args);
     }
     return _instance;
 };

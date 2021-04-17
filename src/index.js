@@ -10,7 +10,7 @@ const { current: getConfig } = require('./config');
 const { current: getLogger } = require('./logger');
 
 const config = getConfig();
-const logger = getLogger();
+const logger = getLogger(process.stdout, true);
 const userClient = getClient(config.restBaseAddressTest, config.restBaseAddress);
 
 const formatter = new FormatterStream(true, true);
