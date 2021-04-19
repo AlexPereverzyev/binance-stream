@@ -13,7 +13,6 @@ class TimeStream extends Duplex {
         this.logger = logger.current();
         this.verbose = verbose;
         this.buckets = new Map();
-        this.prev = +(new Date());
     }
 
     init() {
@@ -79,9 +78,8 @@ class TimeStream extends Duplex {
     _write(data, encoding, callback) {
         const now = +(new Date());
         const second = now / 1000 | 0;
-        const delta = now - this.prev;
-
-        this.prev = now;
+        const payload = JSON.parse(data);
+        const delta = now - payload.E;
 
         let metrics = this.buckets.get(second);
         if (!metrics) {

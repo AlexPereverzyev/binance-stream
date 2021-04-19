@@ -20,7 +20,7 @@ class UserDataClient {
         web.get(url)
             .then((res) => {
                 if (res.data && Array.isArray(res.data)) {
-                    const symbols = res.data.sort((a, b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
+                    const symbols = res.data.sort((a, b) => b.quoteVolume - a.quoteVolume)
                         .slice(0, this.config.topSymbolsCount)
                         .map(s => s.symbol);
                     callback(null, symbols);
@@ -33,7 +33,7 @@ class UserDataClient {
             });
     }
 
-    // User Data Stream (testnet)
+    // User Data Stream
 
     fetchListenKey(callback) {
         const url = `${this.userDataBaseAddress}/userDataStream`;
@@ -101,7 +101,7 @@ class UserDataClient {
         })
             .then((res) => {
                 if (res.data && res.data.balances) {
-                    callback(null, new Map(res.data.balances.map(b => [b.asset, parseFloat(b.free) - parseFloat(b.locked)])));
+                    callback(null, new Map(res.data.balances.map(b => [b.asset, b.free - b.locked])));
                 } else {
                     callback(null, null);
                 }
@@ -111,7 +111,7 @@ class UserDataClient {
             });
     }
 
-    palceOrder(type, symbol, side, quantity, callback) {
+    placeOrder(type, symbol, side, quantity, callback) {
         const { payload, signature } = this.sign(`type=${type}&symbol=${symbol}&side=${side}&quantity=${quantity}`);
         const url = `${this.userDataBaseAddress}/order?signature=${signature}`;
 

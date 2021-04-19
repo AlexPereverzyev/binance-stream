@@ -12,7 +12,6 @@ class Config {
         this.reconnInterval = 1 * 1000;
         this.metricsInterval = 60 * 1000;
         this.topSymbolsCount = 10;
-        this.palceOrderInterval = 30 * 1000;
     }
 }
 

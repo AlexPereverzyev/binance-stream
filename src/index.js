@@ -42,14 +42,14 @@ userClient.fetchTopSymbols((err, res) => {
     }
 
     // place an order every S seconds
-    // setInterval(
-    //     () => userClient.palceOrder('MARKET', 'XRPBUSD', 'SELL', 100, (err, res) => {
-    //         if (err) {
-    //             logger.error(err);
-    //             return;
-    //         }
-    //         logger.info(res);
-    //     }),
-    //     config.palceOrderInterval
-    // );
+    setInterval(
+        () => userClient.placeOrder('MARKET', 'XRPBUSD', 'SELL', 100, (err, res) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            logger.info(res);
+        }),
+        15 * 1000
+    );
 });

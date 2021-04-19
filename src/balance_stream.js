@@ -35,7 +35,7 @@ class BalanceStream extends Transform {
 
         if (update.e === BalanceUpdateEvent && update.B) {
             for (const balance of update.B) {
-                this.balances.set(balance.a, parseFloat(balance.f) - parseFloat(balance.l));
+                this.balances.set(balance.a, balance.f - balance.l);
             }
             this.push(JSON.stringify(
                 Array.from(this.balances)
